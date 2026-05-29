@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chef's Table | Private Chef Services</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #010912;
+            --card: #152840;
+            --text: #e6f0ff;
+            --primary-btn: #cee7ff;
+            --primary-btn-text: #010912;
+            --secondary-btn: #0e1a29;
+            --secondary-btn-text: #e6f0ff;
+            --accent: #3f5c79;
+            --bg-accent: #004a93;
+            --light-bg: #d6e8ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(1, 9, 18, 0.8);
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(1, 9, 18, 0.95);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 60px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(1, 9, 18, 0.85) 0%, rgba(1, 9, 18, 0.6) 50%, rgba(1, 9, 18, 0.85) 100%),
+                        url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1920&q=80') center/cover;
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -2px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 18px;
+            line-height: 1.6;
+            opacity: 0.8;
+            margin-bottom: 40px;
+            max-width: 480px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 50px;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-btn);
+            color: var(--primary-btn-text);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(206, 231, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-btn);
+            color: var(--secondary-btn-text);
+            border: 1px solid rgba(230, 240, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(230, 240, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .hero-trust {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .avatar-group {
+            display: flex;
+        }
+
+        .avatar-group img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--bg);
+            margin-left: -10px;
+            object-fit: cover;
+        }
+
+        .avatar-group img:first-child {
+            margin-left: 0;
+        }
+
+        .trust-text {
+            font-size: 14px;
+            opacity: 0.7;
+            line-height: 1.4;
+        }
+
+        .hero-review {
+            position: absolute;
+            right: 60px;
+            bottom: 100px;
+            background: var(--card);
+            padding: 28px;
+            border-radius: 20px;
+            max-width: 320px;
+            animation: fadeInUp 1s ease 0.8s both;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .stars {
+            color: var(--primary-btn);
+            font-size: 18px;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+
+        .hero-review p {
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            opacity: 0.9;
+        }
+
+        .reviewer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .reviewer img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .reviewer-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .reviewer-info span {
+            font-size: 12px;
+            opacity: 0.6;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 60px;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        .section-header h2 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+
+        .section-header p {
+            font-size: 18px;
+            opacity: 0.7;
+            line-height: 1.6;
+        }
+
+        /* About Section */
+        .about {
+            background: linear-gradient(180deg, var(--bg) 0%, var(--secondary-btn) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(1, 9, 18, 0.7) 0%, rgba(14, 26, 41, 0.9) 100%),
+                        url('https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=1920&q=80') center/cover;
+            z-index: 0;
+        }
+
+        .about-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-tag {
+            display: inline-block;
+            background: var(--card);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            border: 1px solid rgba(230, 240, 255, 0.1);
+        }
+
+        .about h2 {
+            font-size: 52px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .about p {
+            font-size: 18px;
+            line-height: 1.7;
+            opacity: 0.8;
+        }
+
+        /* Services Section */
+        .services {
+            background: var(--bg);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 400px;
+            cursor: pointer;
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .service-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .service-card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(1, 9, 18, 0.1) 0%, rgba(1, 9, 18, 0.7) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+        }
+
+        .service-card-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-btn);
+            color: var(--primary-btn-text);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .service-card-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .service-card h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .service-card p {
+            font-size: 15px;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+
+        /* Menu / Signature Dishes */
+        .menu {
+            background: var(--light-bg);
+            padding: 80px 0;
+        }
+
+        .menu .section-header h2,
+        .menu .section-header p {
+            color: var(--bg);
+        }
+
+        .dishes-scroll {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 20px 60px 40px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .dishes-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .dish-card {
+            min-width: 300px;
+            background: var(--card);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .dish-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .dish-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+
+        .dish-expand {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 40px;
+            height: 40px;
+            background: var(--card);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .dish-expand:hover {
+            background: var(--primary-btn);
+            color: var(--primary-btn-text);
+        }
+
+        .dish-info {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dish-info h3 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .dish-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-btn);
+        }
+
+        /* Pricing Features */
+        .features {
+            background: var(--bg);
+            padding: 80px 60px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 15px;
+        }
+
+        .feature-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .check-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--primary-btn);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-btn-text);
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: var(--bg);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 40px 32px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .pricing-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(230, 240, 255, 0.1);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            border: 1px solid rgba(230, 240, 255, 0.1);
+        }
+
+        .pricing-card h3 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .pricing-card .price-sub {
+            font-size: 16px;
+            opacity: 0.7;
+            margin-bottom: 32px;
+        }
+
+        .pricing-card .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: var(--light-bg);
+            padding: 80px 60px;
+        }
+
+        .testimonials .section-header h2,
+        .testimonials .section-header p {
+            color: var(--bg);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 28px;
+            transition: transform 0.3s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .testimonial-card p {
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-author img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .testimonial-author h4 {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .testimonial-author span {
+            font-size: 13px;
+            opacity: 0.6;
+        }
+
+        /* FAQ Section */
+        .faq {
+            background: var(--bg);
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--card);
+            border-radius: 16px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .faq-item.active {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 28px;
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .faq-question:hover {
+            background: rgba(230, 240, 255, 0.03);
+        }
+
+        .faq-toggle {
+            width: 36px;
+            height: 36px;
+            background: var(--primary-btn);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-btn-text);
+            font-size: 20px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding: 0 28px 24px;
+        }
+
+        .faq-answer p {
+            font-size: 15px;
+            line-height: 1.7;
+            opacity: 0.7;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--light-bg);
+            padding: 0;
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 500px;
+        }
+
+        .contact-form-side {
+            background: var(--card);
+            padding: 80px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .contact-tag {
+            font-size: 14px;
+            opacity: 0.7;
+            margin-bottom: 16px;
+        }
+
+        .contact-form-side h2 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            line-height: 1.1;
+        }
+
+        .contact-form-side p {
+            font-size: 16px;
+            opacity: 0.7;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            max-width: 400px;
+        }
+
+        .contact-form {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .contact-form input {
+            flex: 1;
+            padding: 14px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(230, 240, 255, 0.2);
+            background: rgba(1, 9, 18, 0.3);
+            color: var(--text);
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .contact-form input::placeholder {
+            color: rgba(230, 240, 255, 0.5);
+        }
+
+        .contact-form input:focus {
+            border-color: var(--primary-btn);
+            box-shadow: 0 0 20px rgba(206, 231, 255, 0.1);
+        }
+
+        .contact-form .btn {
+            white-space: nowrap;
+        }
+
+        .privacy-note {
+            font-size: 12px;
+            opacity: 0.5;
+            margin-top: 16px;
+        }
+
+        .privacy-note a {
+            color: var(--primary-btn);
+            text-decoration: none;
+        }
+
+        .contact-image-side {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-image-side img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--light-bg);
+            padding: 60px 60px 30px;
+        }
+
+        .footer-top {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            margin: -60px -60px 40px;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .footer-top img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-brand h3 {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--bg);
+            margin-bottom: 16px;
+        }
+
+        .footer-brand p {
+            font-size: 15px;
+            color: var(--bg);
+            opacity: 0.7;
+            line-height: 1.6;
+        }
+
+        .footer-col h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--bg);
+            opacity: 0.5;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .footer-col a {
+            display: block;
+            color: var(--bg);
+            text-decoration: none;
+            font-size: 15px;
+            margin-bottom: 12px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-col a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding-top: 24px;
+            border-top: 1px solid rgba(1, 9, 18, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            font-size: 14px;
+            color: var(--bg);
+            opacity: 0.5;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 48px;
+            }
+            .hero-review {
+                display: none;
+            }
+            .pricing-grid,
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 16px 24px;
+            }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--bg);
+                flex-direction: column;
+                padding: 24px;
+                gap: 16px;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .hero {
+                padding: 100px 24px 60px;
+            }
+            .hero h1 {
+                font-size: 36px;
+            }
+            section {
+                padding: 60px 24px;
+            }
+            .section-header h2 {
+                font-size: 32px;
+            }
+            .services-grid,
+            .pricing-grid,
+            .features-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .contact-image-side {
+                display: none;
+            }
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+            .footer-top {
+                margin: -60px -24px 40px;
+            }
+            footer {
+                padding: 60px 24px 30px;
+            }
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#" class="logo">Chef's Table</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>Culinary Excellence at Your Table</h1>
+            <p>Indulge in bespoke dining experiences tailored to your palate. Our private chef services bring gourmet cuisine directly to your home or chosen venue.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">Book Your Chef ○</a>
+                <a href="#services" class="btn btn-secondary">Explore Services ○</a>
+            </div>
+            <div class="hero-trust">
+                <div class="avatar-group">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" alt="Client">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" alt="Client">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100" alt="Client">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100" alt="Client">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100" alt="Client">
+                </div>
+                <span class="trust-text">Trusted by discerning<br>clients worldwide.</span>
+            </div>
+        </div>
+        <div class="hero-review">
+            <div class="stars">★★★★★</div>
+            <p>Chef Julian consistently delivers perfection. Each meal is a testament to his passion and unparalleled skill. A true culinary artist.</p>
+            <div class="reviewer">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100" alt="Reviewer">
+                <div class="reviewer-info">
+                    <h4>The Gourmet Life</h4>
+                    <span>@gourmetlife</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-bg"></div>
+        <div class="about-content animate-on-scroll">
+            <span class="about-tag">About Chef Julian</span>
+            <h2>Crafting Unforgettable Dining Experiences</h2>
+            <p>Chef Julian brings over 15 years of culinary expertise, honed in Michelin-starred restaurants and exclusive private residences. His philosophy centers on sourcing the finest seasonal ingredients, creating dishes that tell a story, and delivering impeccable service that transforms every meal into a memorable occasion.</p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-header animate-on-scroll">
+            <h2>Our Signature Services</h2>
+            <p>From intimate dinners to grand celebrations, our private chef services are designed to cater to your every culinary desire.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card animate-on-scroll">
+                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800" alt="Private Dining">
+                <button class="service-card-btn">Learn More</button>
+                <div class="service-card-overlay">
+                    <h3>Private Dining</h3>
+                    <p>Intimate dinners crafted exclusively for you and your guests in the comfort of your home.</p>
+                </div>
+            </div>
+            <div class="service-card animate-on-scroll">
+                <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800" alt="Event Catering">
+                <button class="service-card-btn">Book Now</button>
+                <div class="service-card-overlay">
+                    <h3>Event Catering</h3>
+                    <p>Elevate your special occasions with bespoke menus and flawless execution.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu / Signature Dishes -->
+    <section class="menu" id="menu">
+        <div class="section-header animate-on-scroll">
+            <h2>Signature Dishes</h2>
+            <p>A curated selection of our most celebrated creations, each crafted with passion and precision.</p>
+        </div>
+        <div class="dishes-scroll">
+            <div class="dish-card animate-on-scroll">
+                <img src="https://images.unsplash.com/photo-1534939561126-855b8675edd7?w=500" alt="Pan-Seared Scallops">
+                <button class="dish-expand">↗</button>
+                <div class="dish-info">
+                    <h3>Pan-Seared Scallops</h3>
+                    <span class="dish-price">$$</span>
+                </div>
+            </div>
+            <div class="dish-card animate-on-scroll">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=500" alt="Duck Confit">
+                <button class="dish-expand">↗</button>
+                <div class="dish-info">
+                    <h3>Duck Confit</h3>
+                    <span class="dish-price">$$$</span>
+                </div>
+            </div>
+            <div class="dish-card animate-on-scroll">
+                <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=500" alt="Wild Mushroom Risotto">
+                <button class="dish-expand">↗</button>
+                <div class="dish-info">
+                    <h3>Wild Mushroom Risotto</h3>
+                    <span class="dish-price">$$</span>
+                </div>
+            </div>
+            <div class="dish-card animate-on-scroll">
+                <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=500" alt="Raspberry Chocolate">
+                <button class="dish-expand">↗</button>
+                <div class="dish-info">
+                    <h3>Raspberry Chocolate</h3>
+                    <span class="dish-price">$$</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="features-grid">
+            <div class="feature-card animate-on-scroll">
+                <div class="feature-item"><span class="check-icon">✓</span> 2-4 Guests</div>
+                <div class="feature-item"><span class="check-icon">✓</span> 3-Course Bespoke Menu</div>
+                <div class="feature-item"><span class="check-icon">✓</span> Ingredient Sourcing</div>
+                <div class="feature-item"><span class="check-icon">✓</span> On-site Preparation & Service</div>
+            </div>
+            <div class="feature-card animate-on-scroll">
+                <div class="feature-item"><span class="check-icon">✓</span> 5-10 Guests</div>
+                <div class="feature-item"><span class="check-icon">✓</span> 5-Course Bespoke Menu</div>
+                <div class="feature-item"><span class="check-icon">✓</span> Premium Ingredient Sourcing</div>
+                <div class="feature-item"><span class="check-icon">✓</span> Dedicated Service Staff</div>
+            </div>
+            <div class="feature-card animate-on-scroll">
+                <div class="feature-item"><span class="check-icon">✓</span> 10+ Guests</div>
+                <div class="feature-item"><span class="check-icon">✓</span> Multi-Course Tasting Menu</div>
+                <div class="feature-item"><span class="check-icon">✓</span> Exotic Ingredient Selection</div>
+                <div class="feature-item"><span class="check-icon">✓</span> Sommelier & Full Service Team</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="section-header animate-on-scroll">
+            <h2>Flexible Packages for Every Occasion</h2>
+            <p>Our services are designed to be adaptable. Choose a package or contact us for a custom quote.</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card animate-on-scroll">
+                <div class="pricing-badge">✨ Popular</div>
+                <h3>Starting at $500</h3>
+                <p class="price-sub">Intimate Dinners</p>
+                <button class="btn btn-primary">Request Quote ○</button>
+            </div>
+            <div class="pricing-card animate-on-scroll">
+                <div class="pricing-badge">♛ Exclusive</div>
+                <h3>Starting at $1200</h3>
+                <p class="price-sub">Special Events & Parties</p>
+                <button class="btn btn-primary">Request Quote ○</button>
+            </div>
+            <div class="pricing-card animate-on-scroll">
+                <div class="pricing-badge">◇ Ultimate</div>
+                <h3>Custom Quote</h3>
+                <p class="price-sub">Large Gatherings & Full-Day Events</p>
+                <button class="btn btn-secondary">Contact Us ○</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-header animate-on-scroll">
+            <h2>What Our Clients Say</h2>
+            <p>Hear directly from those who have experienced Chef Julian's culinary artistry.</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card animate-on-scroll">
+                <p>Every dish was a work of art. Chef Julian not only cooked an incredible meal but created an entire experience that our guests are still talking about.</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" alt="Dr. Alistair Finch">
+                    <div>
+                        <h4>Dr. Alistair Finch</h4>
+                        <span>Art Collector</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card animate-on-scroll">
+                <p>Working with Chef Julian is always a pleasure. He understands exactly what we need for our corporate events and delivers beyond expectations every time.</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100" alt="Isabelle Dubois">
+                    <div>
+                        <h4>Isabelle Dubois</h4>
+                        <span>Event Planner</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card animate-on-scroll">
+                <p>For a demanding palate, Chef Julian excels. His innovative techniques and respect for ingredients result in dishes that are both surprising and deeply satisfying.</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100" alt="Robert Sterling">
+                    <div>
+                        <h4>Robert Sterling</h4>
+                        <span>Private Equity</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card animate-on-scroll">
+                <p>Chef Julian's mastery of flavors and impeccable presentation made our anniversary dinner absolutely magical. We will definitely be booking again.</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" alt="Eleanor Vance">
+                    <div>
+                        <h4>Eleanor Vance</h4>
+                        <span>CEO, Vance Corp</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card animate-on-scroll">
+                <p>The highlight of our vacation! Chef Julian created a romantic dinner under the stars that exceeded every expectation. Truly unforgettable.</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=100" alt="Maria & David">
+                    <div>
+                        <h4>Maria & David Chen</h4>
+                        <span>Couple</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card animate-on-scroll">
+                <p>For a demanding palate, Chef Julian excels. His innovative approach to classic dishes brings something truly special to every course.</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100" alt="Robert Sterling">
+                    <div>
+                        <h4>Robert Sterling</h4>
+                        <span>Private Equity</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="section-header animate-on-scroll">
+            <h2>Frequently Asked Questions</h2>
+            <p>Find answers to common questions about our private chef services and booking process.</p>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item animate-on-scroll">
+                <div class="faq-question">
+                    How far in advance should I book?
+                    <button class="faq-toggle">+</button>
+                </div>
+                <div class="faq-answer">
+                    <p>We recommend booking at least 2-4 weeks in advance for intimate dinners and 4-8 weeks for larger events. However, we do accommodate last-minute requests when possible, so feel free to reach out regardless of your timeline.</p>
+                </div>
+            </div>
+            <div class="faq-item animate-on-scroll">
+                <div class="faq-question">
+                    Can you accommodate dietary restrictions?
+                    <button class="faq-toggle">+</button>
+                </div>
+                <div class="faq-answer">
+                    <p>Absolutely. Chef Julian specializes in creating bespoke menus that accommodate all dietary needs including vegan, vegetarian, gluten-free, keto, and allergies. Every menu is customized to your specific requirements.</p>
+                </div>
+            </div>
+            <div class="faq-item animate-on-scroll">
+                <div class="faq-question">
+                    What areas do you serve?
+                    <button class="faq-toggle">+</button>
+                </div>
+                <div class="faq-answer">
+                    <p>We primarily serve the greater metropolitan area and surrounding regions. For destination events or travel outside our standard service area, additional travel fees may apply. Contact us to discuss your location.</p>
+                </div>
+            </div>
+            <div class="faq-item animate-on-scroll">
+                <div class="faq-question">
+                    Do you provide serving staff?
+                    <button class="faq-toggle">+</button>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, our Exclusive and Ultimate packages include dedicated service staff. For the Popular package, Chef Julian handles all preparation and service personally. Additional staff can be arranged for any package upon request.</p>
+                </div>
+            </div>
+            <div class="faq-item animate-on-scroll">
+                <div class="faq-question">
+                    What is included in the service?
+                    <button class="faq-toggle">+</button>
+                </div>
+                <div class="faq-answer">
+                    <p>All packages include menu consultation, ingredient sourcing, on-site preparation, cooking, plating, and cleanup. We bring all necessary equipment and leave your kitchen spotless. Wine pairing recommendations are also available.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-wrapper">
+            <div class="contact-form-side animate-on-scroll">
+                <span class="contact-tag">Ready to Indulge?</span>
+                <h2>Book Your Culinary Experience</h2>
+                <p>Let us transform your next event into an extraordinary dining experience. Fill out the form below to inquire about availability and custom menus.</p>
+                <form class="contact-form" onsubmit="event.preventDefault(); alert('Thank you for your inquiry! We will contact you shortly.');">
+                    <input type="email" placeholder="Your Email Address" required>
+                    <button type="submit" class="btn btn-primary">Send Inquiry ○</button>
+                </form>
+                <p class="privacy-note">By sending an inquiry, you agree to our <a href="#">Privacy Policy</a>.</p>
+            </div>
+            <div class="contact-image-side">
+                <img src="https://images.unsplash.com/photo-1556909114-44e3e70034e2?w=800" alt="Kitchen">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-top">
+            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1920" alt="Footer">
+        </div>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Chef's Table</h3>
+                <p>Bringing Michelin-starred dining experiences to your table. Every dish tells a story, every meal creates a memory.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Services</h4>
+                <a href="#">Custom Menus</a>
+                <a href="#">Dinner Parties</a>
+                <a href="#">Cooking Classes</a>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="#about">About Us</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#faq">FAQ</a>
+            </div>
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <a href="#contact">Contact</a>
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 Chef's Table. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                const isActive = item.classList.contains('active');
+
+                // Close all
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+
+                // Open clicked if it wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
